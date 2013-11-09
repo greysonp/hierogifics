@@ -1,4 +1,4 @@
 hierogifics
 ===========
 
-GIFS, but better.
+GIFS re-tooled
