@@ -99,12 +99,12 @@
     // EVENTS
     // ======================================================
 
-    Mousetrap.bind("command+shift+up", function(e) {
+    Mousetrap.bind(["command+shift+up", "control+shift+up"], function(e) {
         showBelt();
         return false;
     });
 
-    Mousetrap.bind("command+shift+down", function(e) {
+    Mousetrap.bind(["command+shift+down", "control+shift+up"], function(e) {
         hideBelt();
         return false;
     });
