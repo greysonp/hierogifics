@@ -11,10 +11,10 @@ console.log("inscriber.js loaded");
 	//Received valid input
 	if(json){
 		data = json;
-		alert(data);
+		console.log(data);
 	}
 	else{
-		alert("DID NOT GET DATA BACK CORRECTLY");
+		console.log("DID NOT GET DATA BACK CORRECTLY");
 	}
 
 /*
