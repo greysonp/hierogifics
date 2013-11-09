@@ -14,7 +14,7 @@
 		var anchor = $(this);
 		if(anchor.text().localeCompare("") !== 0) {
   			anchor.after("<img src='" + anchor.attr("href") + "' class='hierogifics-expanded-gif'>");
-  			console.log("Replaced " + anchor.attr("href"));
+  			//console.log("Replaced " + anchor.attr("href"));
   		}
 	});
 
