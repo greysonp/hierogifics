@@ -181,10 +181,16 @@
             for (var i = 0; i < categories.length; i++) {
                 var c = categories[i];
                 if (c.name == category) {
+                    if (c.gifs.length == 0) {
+                        categories.splice(i, 1);
+                        break;
+                    }
                     for (var j = 0; j < c.gifs.length; j++) {
                         if (c.gifs[j].animated == src) {
                             c.gifs.splice(j, 1);
-                            console.log("found it!");
+                            if (c.gifs.length == 0) {
+                                categories.splice(i, 1);
+                            }
                             break;
                         }
                     }
