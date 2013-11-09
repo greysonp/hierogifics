@@ -180,14 +180,18 @@
             var categories = categoriesObj.categories;
             for (var i = 0; i < categories.length; i++) {
                 var c = categories[i];
+                // Find the category that matches
                 if (c.name == category) {
+                    // If you clicked the empty.jpg, then just delete the category and skidaddle
                     if (c.gifs.length == 0) {
                         categories.splice(i, 1);
                         break;
                     }
+                    // Otherwise, go through all of the gifs and find the matching src
                     for (var j = 0; j < c.gifs.length; j++) {
                         if (c.gifs[j].animated == src) {
                             c.gifs.splice(j, 1);
+                            // If you just deleted the last one, delete the category too
                             if (c.gifs.length == 0) {
                                 categories.splice(i, 1);
                             }
