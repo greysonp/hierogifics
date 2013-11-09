@@ -4,18 +4,21 @@ console.log("inscriber.js loaded");
 
 	//retrieve page information
 	var url = window.location.origin + window.location.pathname;
-	var data;
+	var json;
 
-	var json = $.get( //insert link
-		"http://hierogifics.herokuapp.com/db/read/" + url);
-	//Received valid input
-	if(json){
-		data = json;
-		console.log(data);
-	}
-	else{
-		console.log("DID NOT GET DATA BACK CORRECTLY");
-	}
+	$.get( //insert link
+		"http://hierogifics.herokuapp.com/db/read/hi", function(data) {
+        json = JSON.parse(data);
+	    if(json){
+		    console.log(json);
+		    placeGIF();
+	    }
+	    else{
+		    console.log("DID NOT GET DATA BACK CORRECTLY");
+	    }
+    });
+
+        //Received valid input
 
 /*
 	$.get(
@@ -60,25 +63,31 @@ console.log("inscriber.js loaded");
 };
 */
 	var placeGIF = function() {
-		for(var i = 0; i < data.gifs.length; i++) {
+		for(var i = 0; i < json.length; i++) {
 			//find element
-			var element = jQuery.parseHTML(data.gifs[i].id);
+			var element = jQuery.parseHTML(json[i].id);
 			var target = null;
 			if(element[0].localName.localeCompare("img") == 0) {
 				target = $("img[src='" + element[0].src.substring(5) + "']");
 				//Means the element to hide things under was found
 				if(target.length != 0){
-					$(target).after("<img src='" + data.gifs[i].gif_url + "' class='hidden-hierogif'>");
+					$(target).after("<img src='" + dajsonta[i].gif_url + "' class='hidden-hierogif'>");
 					$(target).mouseover(function() {
 					$(this).next().removeClass("hidden-hierogif").addClass('revealed-hierogif');
 				});
 				}
 				//That element was not found on this page
 				else{
-					$.get(
-					    //delete get url here
-					    "http://hierogifics.herokuapp.com/db/remove/",
-					     {gif_id: data.gifs[i].gif_id});
+					$.get("http://hierogifics.herokuapp.com/db/remove/", {gif_id: json[i].gif_id}, function(data) {
+                        json = JSON.parse(data);
+	                    if(json){
+		                    console.log(json);
+            	        }
+            	        else{
+		                    console.log("DID NOT GET DATA BACK CORRECTLY");
+	                    }
+                    });
+
 				}
 
 /*
@@ -123,7 +132,5 @@ console.log("inscriber.js loaded");
 			console.log(target);*/
 
 	};
-
-	placeGIF();
 
 })();
