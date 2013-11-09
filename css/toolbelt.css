@@ -16,20 +16,29 @@
   position: fixed;
   bottom: 0;
   height: 300px;
-  background-color: #ddd;
+  width: 100px;
   overflow-y: auto;
   overflow-x: visible;
   margin: 0;
   padding: 0;
+#000
 }
 .gifics-belt ol li:hover ol {
   display: block;
 }
+.gifics-belt ol li:hover {
+  background: none;
+}
+.gifics-belt ol li ol li:hover {
+  background-color: #fff;
+  border-radius: 50px;
+}
 .gifics-belt ol li ol li {
   display: block;
   margin-bottom: 15px;
-  margin-left: -5px;
   bottom: 0;
+  background-color: #fff;
+  border-radius: 50px;
 }
 .gifics-belt ol li ol li:last-child {
   margin-bottom: 0;
@@ -42,9 +51,8 @@
   list-style: none;
   width: 100px;
   height: 100px;
-  border: 2px solid #000;
   background-color: #fff;
-  border-radius: 75px;
+  border-radius: 50px;
 }
 .gifics-next-button {
   position: absolute;
@@ -53,5 +61,4 @@
   background-color: #fff;
   width: 50px;
   height: 100px;
-  border: 2px solid #000;
 }

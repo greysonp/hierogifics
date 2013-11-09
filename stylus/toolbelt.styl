@@ -1,6 +1,10 @@
 iconRadius = 100px
 beltHeight = 75px
 
+li-rounded()
+    background-color white
+    border-radius (iconRadius/2)
+
 .gifics-toolbelt 
     position fixed
     bottom -1 * iconRadius
@@ -23,22 +27,30 @@ beltHeight = 75px
     position fixed
     bottom 0
     height 300px
-    background-color #ddd
+    width iconRadius
     overflow-y auto
     overflow-x visible
     margin 0
     padding 0
+    -webkit-gradient(linear, left top, left bottom, 
+            color-stop(0, rgba(0,0,0,0)),
+            color-stop(1, rgba(0,0,0,1)));
 
 
 .gifics-belt ol li:hover ol 
     display block
 
+.gifics-belt ol li:hover
+    background none
+
+.gifics-belt ol li ol li:hover
+    li-rounded()
 
 .gifics-belt ol li ol li 
     display block
     margin-bottom 15px
-    margin-left -5px
     bottom 0
+    li-rounded()
     &:last-child
         margin-bottom 0
         background-color red
@@ -51,9 +63,7 @@ beltHeight = 75px
     list-style none
     width iconRadius
     height iconRadius
-    border 2px solid black
-    background-color white
-    border-radius 75px
+    li-rounded()
 
 
 .gifics-next-button 
@@ -63,4 +73,3 @@ beltHeight = 75px
     background-color white
     width 50px
     height iconRadius
-    border 2px solid black
