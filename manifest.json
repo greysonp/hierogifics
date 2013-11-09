@@ -26,7 +26,9 @@
                 "js/parser.js",
                 "js/expander.js",
                 "js/pauser.js",
-                "js/toolbelt.js"],
+                "js/toolbelt.js",
+		"js/add_hierogif.js",
+		"js/inscriber.js"],
 
             "matches": [  
                 "http://*/*",
