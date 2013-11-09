@@ -13,6 +13,11 @@
         "default_popup": "popup.html",
         "default_icon": "img/icon.png"
     },
+
+    "background": {
+        "scripts": ["js/background_script.js"]
+      },
+
     "content_scripts": [
         {
             "exclude_globs": [  ],
@@ -22,10 +27,13 @@
             ],
             "js": [ 
                 "js/libs/jquery-2.0.3.min.js",
+                "js/libs/mousetrap.min.js",
                 "js/parser.js",
                 "js/expander.js",
                 "js/pauser.js",
-                "js/toolbelt.js"],
+                "js/toolbelt.js",
+		"js/add_hierogif.js",
+		"js/inscriber.js"],
 
             "matches": [  
                 "http://*/*",
@@ -37,13 +45,16 @@
 
     "permissions": [
         "tabs",
-        "storage"
+        "storage",
+        "contextMenus",
+        "management"
     ],
 
     "web_accessible_resources": [
         "img/*",
         "css/*",
         "js/*",
-        "js/libs/*"
+        "js/libs/*",
+        "html/*"
     ]
 }

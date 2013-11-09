@@ -1,0 +1,85 @@
+iconDiameter = 100px
+beltHeight = 0px
+
+li-rounded()
+    background-color white
+    border-radius (iconDiameter/2)
+
+circleMask() 
+    -webkit-clip-path: circle(iconDiameter/2, iconDiameter/2, iconDiameter/2)
+
+.gifics-toolbelt 
+    position fixed
+    bottom -1 * iconDiameter
+    width 100%
+
+
+.gifics-belt 
+    height beltHeight
+    background-color #aaa
+
+
+.gifics-belt ol 
+    margin 0
+    padding 0
+
+
+.gifics-belt ol li ol 
+    display none
+    position fixed
+    bottom 0
+    height 400px
+    width iconDiameter
+    overflow hidden
+    margin 0
+    padding 0
+
+.gifics-belt ol li:hover ol 
+    display block
+
+.gifics-belt ol li:hover
+    background none
+
+.gifics-belt ol li ol li:hover
+    li-rounded()
+
+.gifics-belt ol li ol li 
+    display block
+    margin-bottom 15px
+    bottom 0
+    li-rounded()
+    &:last-child
+        margin-bottom 0
+
+.gifics-belt li 
+    position relative
+    bottom (iconDiameter - beltHeight)
+    display inline-block
+    list-style none
+    width iconDiameter
+    height iconDiameter
+    li-rounded()
+    z-index 2147483648
+
+.gifics-belt img
+    width auto
+    height iconDiameter
+    circleMask()
+
+.gifics-belt a 
+    width iconDiameter
+    height iconDiameter
+    circleMask()
+    display block
+
+
+.gifics-belt > ol > li:hover > img
+    display none
+
+.gifics-next-button 
+    position absolute
+    bottom 0
+    right 0
+    background-color white
+    width 50px
+    height iconDiameter
