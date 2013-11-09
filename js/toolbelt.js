@@ -91,6 +91,7 @@
         });
         $(".gifics-add-category").click(addCategory);
         $("#js-belt li a").click(function(e) { e.preventDefault(); });
+        $("#js-belt li a").dblclick(promptToDeleteGif);
     }
 
 
@@ -122,11 +123,27 @@
             var categories = categoriesObj.categories;
             categories.push({"name": name, "symbol": [], "gifs": []});
             chrome.storage.sync.set({ "categories": categories }, function() {
-                $("#js-toolbelt ol").empty();
-                kickoffToolbelt();
+                resetBelt();
+                chrome.runtime.sendMessage({ "refresh": true });
             });
         });
     }
+
+    function promptToDeleteGif(e) {
+        var result = confirm("Would you like to delete this gif?");
+        if (result) {
+            var category = $(this).parents("ol").parents("li").find(".gifics-title").text();
+            var src = $(this).attr("href");
+            deleteGif(category, src);
+        }
+    }
+
+    chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
+        console.log(request);
+        if (request.refresh) {
+            resetBelt();
+        }
+    });
 
     // ======================================================
     // HELPERS
@@ -138,6 +155,11 @@
 
     function hideBelt() {
         $("#js-toolbelt").animate({"bottom": "-150px"}, 250);
+    }
+
+    function resetBelt() {
+        $("#js-toolbelt ol").empty();
+        kickoffToolbelt();
     }
 
     function nextCategory() {
@@ -153,8 +175,36 @@
         return anchor;
     }
 
-    function copyTextToClipboard(text) {
-        
+    function deleteGif(category, src) {
+        chrome.storage.sync.get("categories", function(categoriesObj) {
+            var categories = categoriesObj.categories;
+            for (var i = 0; i < categories.length; i++) {
+                var c = categories[i];
+                // Find the category that matches
+                if (c.name == category) {
+                    // If you clicked the empty.jpg, then just delete the category and skidaddle
+                    if (c.gifs.length == 0) {
+                        categories.splice(i, 1);
+                        break;
+                    }
+                    // Otherwise, go through all of the gifs and find the matching src
+                    for (var j = 0; j < c.gifs.length; j++) {
+                        if (c.gifs[j].animated == src) {
+                            c.gifs.splice(j, 1);
+                            // If you just deleted the last one, delete the category too
+                            if (c.gifs.length == 0) {
+                                categories.splice(i, 1);
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                }
+            }
+            chrome.storage.sync.set({"categories": categories}, function() {
+                 resetBelt();
+            });
+        });
     }
 
 })();
