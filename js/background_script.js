@@ -100,18 +100,3 @@ function initCategories(callback) {
     var obj = { "categories": categories };
     chrome.storage.sync.set({ "categories": categories }, function() { callback(obj); });
 }
-
-
-// chrome.runtime.onMessage.addListener(
-//   function(request, sender, sendResponse) {
-//     console.log(sender.tab ?
-//                 "from a content script:" + sender.tab.url :
-//                 "from the extension");
-//         if (request.categories) {
-//             sendResponse({"categories": ["dog", "hello"]});
-//         }
-//         return true;
-//   });
-
-
-
