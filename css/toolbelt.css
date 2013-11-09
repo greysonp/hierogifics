@@ -1,0 +1,23 @@
+.gifics-toolbelt {
+    position: fixed;
+    bottom: -150px;
+    /*bottom: 0;*/
+    width: 100%;
+}
+
+.gifics-belt {
+    height: 100px;
+    background-color: #aaa;
+}
+
+.gifics-belt li {
+    position: relative;
+    bottom: 50px;
+    display: inline-block;
+    list-style: none;
+    width: 150px;
+    height: 150px;
+    border: 2px solid black;
+    margin-left: 15px;
+    background-color: white;
+}
