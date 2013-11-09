@@ -26,6 +26,7 @@ console.log("parser.js loaded");
 		// {{#label}}
 		// {{&label}}
 		// {{label#(N)}}
+		var giphy = false;
 		var stackPattern = /#(.*)$/g;
 		var randomPattern = /&(.*)$/g;
 		var numPattern = /([^#].*)#([0-9]+)/g;
@@ -36,36 +37,45 @@ console.log("parser.js loaded");
 		var gifIndex = 0;
 
 		if(subMatch = numPattern.exec(match[1])) {
-			console.log("num pattern: " + subMatch[1] + " number " + subMatch[2]);
+			//console.log("num pattern: " + subMatch[1] + " number " + subMatch[2]);
 			handledText = "[" + subMatch[1] + " number " + subMatch[2] + "]";
 			label = subMatch[1];
 			gifIndex = parseInt(subMatch[2]) - 1;
 		}
 		else if(subMatch = stackPattern.exec(match[1])) {
-			console.log("stack pattern: " + subMatch[1]);
+			//console.log("stack pattern: " + subMatch[1]);
 			handledText = "[Smart stack " + subMatch[1] + "]";
 			//giphy url with label
+			var json = $.get("http://hierogifics.herokuapp.com/" + subMatch[1]);
+			console.log(subMatch[1]);
+			console.log(json);
+			var index = Math.floor(Math.random()*json.data.length);
+			handledText = json.data[index].url;
+			giphy = true;
+
 		}
 		else if(subMatch = randomPattern.exec(match[1])) {
-			console.log("random pattern: " + subMatch[1]);
+			//console.log("random pattern: " + subMatch[1]);
 			handledText = "[Random from " + subMatch[1] + "]";
 			label = subMatch[1];
 			if(categoryIndexOf(label) !== -1)
 				gifIndex = Math.floor(Math.random()*data.categories[categoryIndexOf(label)].gifs.length);
 		}
 
-		var index = -1;
-		console.log(label + "[" + gifIndex + "]");
-		if((index = categoryIndexOf(label)) !== -1)
-			handledText = data.categories[index].gifs[gifIndex%data.categories[index].gifs.length].animated;
-		else
-			handledText = "[invalid category]";
+		if(!giphy) {
+			var index = -1;
+			//console.log(label + "[" + gifIndex + "]");
+			if((index = categoryIndexOf(label)) !== -1)
+				handledText = data.categories[index].gifs[gifIndex%data.categories[index].gifs.length].animated;
+			else
+				handledText = "[invalid category]";
+		}
 
 		text = text.replace("{{" + match[1] + "}}", handledText);
 		//console.log("remaining: " + text);
 		//process match
 	}
-	console.log("Matching complete");
+	//console.log("Matching complete");
 
 	field.value = text;
 
