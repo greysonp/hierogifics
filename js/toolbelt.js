@@ -30,16 +30,20 @@
 
             for (var j = 0; j < gifs.length; j++) {
                 var innerLi = document.createElement("li");
-                var anchor = document.createElement("a");
-                anchor.style.backgroundImage = "url(" + gifs[j].animated + ")";
-                anchor.style.backgroundSize = "auto 100px";
-                anchor.href = gifs[j].animated;
+                var anchor = generateAnchorGif(gifs[j].animated);
                 innerLi.appendChild(anchor);
+
                 ol.appendChild(innerLi);
                 if (j == gifs.length - 1) {
-                    var img2 = document.createElement("img");
-                    img2.src = gifs[j].animated;
-                    li.appendChild(img2);
+                    var anchor2 = generateAnchorGif(gifs[j].animated);
+                    li.appendChild(anchor2);
+                    var overlay = document.createElement("div");
+                    overlay.setAttribute("class", "gifics-overlay");
+                    li.appendChild(overlay);
+                    var nameDiv = document.createElement("div");
+                    nameDiv.setAttribute("class", "gifics-title");
+                    nameDiv.innerText = name;
+                    li.appendChild(nameDiv);
                 }
             }
             li.appendChild(ol);
@@ -50,6 +54,15 @@
             var height = Math.min($(this).children().length * 115 - 15, 400);
             $(this).css("height", height + "px");
         });
+    }
+
+    function generateAnchorGif(src) {
+        var anchor = document.createElement("a");
+        anchor.style.backgroundImage = "url(" + src + ")";
+        anchor.style.backgroundPosition = "center";
+        anchor.style.backgroundSize = "auto 100px";
+        anchor.href = src;
+        return anchor;
     }
 
     function initEvents() {
