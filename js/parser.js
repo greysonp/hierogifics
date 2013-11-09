@@ -1,5 +1,46 @@
 console.log("parser.js loaded");
 
+//test json object
+var data = {
+   categories: [    {
+       name: "happy",
+       symbol: ":)",
+       gifs: [{
+            "animated": "http://media1.giphy.com/media/q6QHDGE3X4EWA/giphy.gif",
+            "use_count": 5
+        },
+        {
+            "animated": "http://media.giphy.com/media/dBu6VX8ZI9pSM/giphy.gif",
+            "use_count": 2
+        }]
+    },
+    {
+       name: "sad",
+       symbol: ":(",
+       	gifs: [{
+       		"animated": "http://media.giphy.com/media/XAcSy8eyMFpaU/giphy.gif",
+       		"use_count": 1
+       	},
+       	{
+       		"animated": "http://media.giphy.com/media/kB1IR4TzOoBnq/giphy.gif",
+       		"use_count": 3
+       	}]
+    },
+    {
+    	name: "mad",
+    	symbol: "D:<",
+		gifs: [{
+       		"animated": "http://media2.giphy.com/media/vwu9UTwIwFr7G/giphy.gif",
+       		"use_count": 4
+       	},
+       	{
+       		"animated": "http://media1.giphy.com/media/zMe5y4Lfy52Sc/giphy.gif",
+       		"use_count": 1
+       	}]
+    }
+   ]   
+};
+
 (function() {
 	var inputHandler = function(event) {
 		getValidTags(event.target);
@@ -48,7 +89,21 @@ var getValidTags = function (field) {
 		else {
 			//default label
 			console.log("default match: " + match[1]);
-			handledText = "[Default from " + match[1] + "]";
+			
+
+			//move this into function
+			var category = null;
+			for(var i = 0; i < data.categories.length - 1; i++) {
+				if(data.categories[i].name.localeCompare(match[1]) == 0) {
+					category = data.categories[i];
+					break;
+				}
+			}
+
+			if(category)
+				handledText = category.gifs[0].animated;
+			else
+				handledText = "[invalid category]";
 		}
 
 		text = text.replace("{{" + match[1] + "}}", handledText);
