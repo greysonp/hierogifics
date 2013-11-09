@@ -1,0 +1,59 @@
+iconRadius = 100px
+beltHeight = 75px
+
+.gifics-toolbelt 
+    position fixed
+    bottom -1 * iconRadius
+    width 100%
+
+
+.gifics-belt 
+    height beltHeight
+    background-color #aaa
+
+
+.gifics-belt ol 
+    margin 0
+    padding 0
+
+
+.gifics-belt ol li ol 
+    position fixed
+    bottom beltHeight
+
+
+.gifics-belt ol li ol 
+    display none
+
+
+.gifics-belt ol li:hover ol 
+    display block
+
+
+.gifics-belt ol li ol li 
+    display block
+    margin-bottom 15px
+    margin-left -5px
+
+
+.gifics-belt li 
+    position relative
+    bottom (iconRadius - beltHeight)
+    display inline-block
+    list-style none
+    width iconRadius
+    height iconRadius
+    border 2px solid black
+    margin-left 15px
+    background-color white
+    border-radius 75px
+
+
+.gifics-next-button 
+    position absolute
+    bottom 0
+    right 0
+    background-color white
+    width 50px
+    height iconRadius
+    border 2px solid black

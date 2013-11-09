@@ -1,23 +1,49 @@
 .gifics-toolbelt {
-    position: fixed;
-    bottom: -150px;
-    /*bottom: 0;*/
-    width: 100%;
+  position: fixed;
+  bottom: -100px;
+  width: 100%;
 }
-
 .gifics-belt {
-    height: 100px;
-    background-color: #aaa;
+  height: 75px;
+  background-color: #aaa;
 }
-
+.gifics-belt ol {
+  margin: 0;
+  padding: 0;
+}
+.gifics-belt ol li ol {
+  position: fixed;
+  bottom: 75px;
+}
+.gifics-belt ol li ol {
+  display: none;
+}
+.gifics-belt ol li:hover ol {
+  display: block;
+}
+.gifics-belt ol li ol li {
+  display: block;
+  margin-bottom: 15px;
+  margin-left: -5px;
+}
 .gifics-belt li {
-    position: relative;
-    bottom: 50px;
-    display: inline-block;
-    list-style: none;
-    width: 150px;
-    height: 150px;
-    border: 2px solid black;
-    margin-left: 15px;
-    background-color: white;
+  position: relative;
+  bottom: 25px;
+  display: inline-block;
+  list-style: none;
+  width: 100px;
+  height: 100px;
+  border: 2px solid #000;
+  margin-left: 15px;
+  background-color: #fff;
+  border-radius: 75px;
+}
+.gifics-next-button {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
+  width: 50px;
+  height: 100px;
+  border: 2px solid #000;
 }
