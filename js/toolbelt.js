@@ -2,6 +2,7 @@
     $.get(chrome.extension.getURL("html/toolbelt.html"), function(data) {
         $("body").append(data);
         $("#js-next-button").click(nextCategory);
+        $("#js-belt ol li").mouseenter(setScrollToBottom);
     });
 
     Mousetrap.bind("command+shift+up", function(e) {
@@ -13,6 +14,8 @@
         hideBelt();
         return false;
     });
+
+
 
     function showBelt() {
         $("#js-toolbelt").animate({"bottom": "0"}, 250);
@@ -26,4 +29,10 @@
         console.log("hello");
         $("#js-belt ol").append($("#js-belt ol li:first"));
     }
+
+    function setScrollToBottom() {
+        var elem = $(this).find("ol");
+        elem.scrollTop(elem.height());
+    }
+
 })();

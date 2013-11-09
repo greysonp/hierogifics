@@ -18,12 +18,16 @@ beltHeight = 75px
 
 
 .gifics-belt ol li ol 
-    position fixed
-    bottom beltHeight
-
-
-.gifics-belt ol li ol 
     display none
+    
+    position fixed
+    bottom 0
+    height 300px
+    background-color #ddd
+    overflow-y auto
+    overflow-x visible
+    margin 0
+    padding 0
 
 
 .gifics-belt ol li:hover ol 
@@ -34,6 +38,10 @@ beltHeight = 75px
     display block
     margin-bottom 15px
     margin-left -5px
+    bottom 0
+    &:last-child
+        margin-bottom 0
+        background-color red
 
 
 .gifics-belt li 
@@ -44,7 +52,6 @@ beltHeight = 75px
     width iconRadius
     height iconRadius
     border 2px solid black
-    margin-left 15px
     background-color white
     border-radius 75px
 
