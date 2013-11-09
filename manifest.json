@@ -22,6 +22,7 @@
             ],
             "js": [ 
                 "js/libs/jquery-2.0.3.min.js",
+                "js/libs/mousetrap.min.js",
                 "js/parser.js",
                 "js/expander.js",
                 "js/pauser.js",
@@ -44,6 +45,7 @@
         "img/*",
         "css/*",
         "js/*",
-        "js/libs/*"
+        "js/libs/*",
+        "html/*"
     ]
 }
