@@ -7,7 +7,7 @@ console.log("inscriber.js loaded");
 	var data;
 
 	var json = $.get( //insert link
-		"http://hierogifics.herokuapp.com/db/read/", {url: "hi"});
+		"http://hierogifics.herokuapp.com/db/read/" + url);
 	//Received valid input
 	if(json){
 		data = json;
@@ -33,9 +33,9 @@ console.log("inscriber.js loaded");
             alert("Error: " + textStatus);
             alert("Error: " + errorThrown);
         }
-    });  
+    });
 
-    */  
+    */
 
 /*
 	var data =  {
@@ -121,7 +121,7 @@ console.log("inscriber.js loaded");
 				continue;
 			}
 			console.log(target);*/
-			
+
 	};
 
 	placeGIF();
