@@ -3,6 +3,7 @@
         $("body").append(data);
         $("#js-next-button").click(nextCategory);
         $("#js-belt ol li").mouseenter(setScrollToBottom);
+        $("#js-belt ol li").mouseleave(setScrollToBottom);
         $("#js-belt ol li ol").css("-webkit-mask", "url(" + chrome.extension.getURL("img/toolbar_fade_mask.svg") + ")");
         $("#js-belt ol li ol").bind("mousewheel", function(e) {
             $(this).scrollTop($(this).scrollTop() - e.originalEvent.wheelDeltaY / 2);

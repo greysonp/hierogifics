@@ -1,13 +1,16 @@
-iconRadius = 100px
+iconDiameter = 100px
 beltHeight = 0px
 
 li-rounded()
     background-color white
-    border-radius (iconRadius/2)
+    border-radius (iconDiameter/2)
+
+circleMask() 
+    -webkit-clip-path: circle(iconDiameter/2, iconDiameter/2, iconDiameter/2)
 
 .gifics-toolbelt 
     position fixed
-    bottom -1 * iconRadius
+    bottom -1 * iconDiameter
     width 100%
 
 
@@ -23,11 +26,10 @@ li-rounded()
 
 .gifics-belt ol li ol 
     display none
-    
     position fixed
     bottom 0
     height 400px
-    width iconRadius
+    width iconDiameter
     overflow hidden
     margin 0
     padding 0
@@ -48,23 +50,24 @@ li-rounded()
     li-rounded()
     &:last-child
         margin-bottom 0
-        background-color red
-
 
 .gifics-belt li 
     position relative
-    bottom (iconRadius - beltHeight)
+    bottom (iconDiameter - beltHeight)
     display inline-block
     list-style none
-    width iconRadius
-    height iconRadius
+    width iconDiameter
+    height iconDiameter
     li-rounded()
+    z-index 200000000
 
 .gifics-belt img
-    width iconRadius
-    height auto
-    -webkit-clip-path: circle(iconRadius/2, iconRadius/2, iconRadius/2)
+    width auto
+    height iconDiameter
+    circleMask()
 
+.gifics-belt > ol > li:hover > img
+    display none
 
 .gifics-next-button 
     position absolute
@@ -72,4 +75,4 @@ li-rounded()
     right 0
     background-color white
     width 50px
-    height iconRadius
+    height iconDiameter
