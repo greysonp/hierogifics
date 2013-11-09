@@ -32,7 +32,7 @@
 
     function nextCategory() {
         console.log("hello");
-        $("#js-belt ol").append($("#js-belt ol li:first"));
+        $("#js-belt > ol").append($("#js-belt > ol li:first"));
     }
 
     function setScrollToBottom() {

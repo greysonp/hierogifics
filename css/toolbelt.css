@@ -52,6 +52,11 @@
   background-color: #fff;
   border-radius: 50px;
 }
+.gifics-belt img {
+  width: 100px;
+  height: auto;
+  -webkit-clip-path: circle(50px, 50px, 50px);
+}
 .gifics-next-button {
   position: absolute;
   bottom: 0;
