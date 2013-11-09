@@ -28,7 +28,6 @@
             ],
             "js": [ 
                 "js/libs/jquery-2.0.3.min.js",
-                "js/libs/ZeroClipboard.min.js",
                 "js/libs/mousetrap.min.js",
                 "js/parser.js",
                 "js/expander.js",

@@ -110,7 +110,10 @@
 
     function setScrollToBottom() {
         var elem = $(this).find("ol");
-        elem.scrollTop(elem.height());
+        var height = elem.height();
+        elem.scrollTop(height);
+        elem.css("opacity", 0);
+        elem.animate({"opacity": 1}, 300);
     }
 
     function addCategory(e) {
