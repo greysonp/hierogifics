@@ -23,7 +23,8 @@
             "exclude_globs": [  ],
             "include_globs": [ "*" ],
             "css": [
-                "css/toolbelt.css"
+                "css/toolbelt.css",
+	    	"css/hierogif.css"
             ],
             "js": [ 
                 "js/libs/jquery-2.0.3.min.js",
