@@ -73,7 +73,9 @@ circleMask()
     display block
 
 
-.gifics-belt > ol > li:hover > img
+.gifics-belt > ol > li:hover > img, 
+.gifics-belt > ol > li:hover .gifics-overlay, 
+.gifics-belt > ol > li:hover .gifics-title
     display none
 
 .gifics-next-button 
@@ -83,3 +85,25 @@ circleMask()
     background-color white
     width 50px
     height iconDiameter
+
+.gifics-overlay
+    circleMask()
+    position absolute
+    top 0
+    left 0
+    width iconDiameter
+    height iconDiameter
+    background-color #dfa35b
+    opacity 0.75
+    text-align center
+
+.gifics-title
+    position absolute
+    left 0
+    top 25px
+    width iconDiameter
+    height iconDiameter
+    text-align center
+    color white
+    font-weight bold
+    font-size 24px

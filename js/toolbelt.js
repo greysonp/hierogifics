@@ -32,14 +32,23 @@
                 var innerLi = document.createElement("li");
                 var anchor = document.createElement("a");
                 anchor.style.backgroundImage = "url(" + gifs[j].animated + ")";
+                anchor.style.backgroundPosition = "center";
                 anchor.style.backgroundSize = "auto 100px";
                 anchor.href = gifs[j].animated;
                 innerLi.appendChild(anchor);
+
                 ol.appendChild(innerLi);
                 if (j == gifs.length - 1) {
                     var img2 = document.createElement("img");
                     img2.src = gifs[j].animated;
                     li.appendChild(img2);
+                    var overlay = document.createElement("div");
+                    overlay.setAttribute("class", "gifics-overlay");
+                    li.appendChild(overlay);
+                    var nameDiv = document.createElement("div");
+                    nameDiv.setAttribute("class", "gifics-title");
+                    nameDiv.innerText = name;
+                    li.appendChild(nameDiv);
                 }
             }
             li.appendChild(ol);
