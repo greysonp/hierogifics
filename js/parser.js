@@ -43,7 +43,7 @@ console.log("parser.js loaded");
 				//console.log("num pattern: " + subMatch[1] + " number " + subMatch[2]);
 				//handledText = "[" + subMatch[1] + " number " + subMatch[2] + "]";
 				label = subMatch[1];
-				gifIndex = parseInt(subMatch[2]) - 1;
+				gifIndex = -(parseInt(subMatch[2]) - 1);
 				setHandledText(gifIndex, match[1], label, data, text, field);
 			}
 			else if(subMatch = stackPattern.exec(match[1])) {
@@ -83,8 +83,13 @@ console.log("parser.js loaded");
 	var setHandledText = function(gifIndex, matched, label, collection, text, field) {
 		var index = -1;
 			//console.log(label + "[" + gifIndex + "]");
-			if((index = categoryIndexOf(label)) !== -1)
-				handledText = collection.categories[index].gifs[gifIndex%collection.categories[index].gifs.length].animated;
+			if((index = categoryIndexOf(label)) !== -1) {
+				var length = collection.categories[index].gifs.length;
+				var nIndex = gifIndex%length;
+				//console.log(nIndex);
+				nIndex = (nIndex <= 0)? nIndex + length - 1: nIndex;
+				handledText = collection.categories[index].gifs[nIndex].animated;
+			}
 			else
 				handledText = "[invalid category]";
 
