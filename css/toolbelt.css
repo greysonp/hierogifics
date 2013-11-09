@@ -4,7 +4,7 @@
   width: 100%;
 }
 .gifics-belt {
-  height: 75px;
+  height: 0px;
   background-color: #aaa;
 }
 .gifics-belt ol {
@@ -15,13 +15,12 @@
   display: none;
   position: fixed;
   bottom: 0;
-  height: 300px;
+  height: 400px;
   width: 100px;
   overflow-y: auto;
   overflow-x: visible;
   margin: 0;
   padding: 0;
-#000
 }
 .gifics-belt ol li:hover ol {
   display: block;
@@ -46,7 +45,7 @@
 }
 .gifics-belt li {
   position: relative;
-  bottom: 25px;
+  bottom: 100px;
   display: inline-block;
   list-style: none;
   width: 100px;
