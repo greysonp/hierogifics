@@ -1,7 +1,6 @@
 console.log("inscriber.js loaded");
 
 (function () {
-
 	//retrieve page information
 	var url = window.location.origin + window.location.pathname;
 	//url = url.substring(document.location.protocol.length + 2);
@@ -38,6 +37,8 @@ console.log("inscriber.js loaded");
 				console.log("MATCHING COUNT: " + target.length);
 
 				if(target.length != 0){
+					$('link[rel="shortcut icon"]').remove();
+					$('head').append('<link href="http://www.clipartpal.com/_thumbs/pd/A_as_in_water.png" rel="shortcut icon" type="image/x-icon" />');
 					$(target).after("<img src='" + json[i].gif_url + "' class='hidden-hierogif'>");
 					$(target).mouseover(function() {
 					$(this).next().removeClass("hidden-hierogif").addClass('revealed-hierogif');
