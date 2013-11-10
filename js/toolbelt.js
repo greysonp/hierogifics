@@ -19,7 +19,6 @@
     function kickoffToolbelt() {
         chrome.storage.sync.get("categories", function(categoriesObj) {
             initToolbelt(categoriesObj.categories);
-            initEvents();
         });
     }
 
@@ -31,7 +30,7 @@
             var name = categories[i].name;
             if (name.charAt(0) == '#') {
                 smarts.push({"name": name, "index": i});
-                break;
+                continue;
             }
             var gifs = categories[i].gifs;
             var li = document.createElement("li");
@@ -62,13 +61,20 @@
             li.appendChild(ol);
             $("#js-belt ol")[0].appendChild(li);
         }
+        // If we have no smart objects, we're done. Otherwise, we need to add them
+        if (smarts.length == 0)
+            finishToolbelt();
+        else
+            addSmartGifs(smarts);
+    }
+
+    function finishToolbelt() {
         var addCategory = document.createElement("li");
         addCategory.setAttribute("class", "gifics-add-category");
         addCategory.innerText = "+";
         $("#js-belt ol")[0].appendChild(addCategory);
 
         $("#js-belt ol li ol").each(function(index){
-            console.log($(this).children().length);
             var height = Math.min($(this).children().length * 115 - 15, 400);
             $(this).css("height", height + "px");
         });
@@ -80,6 +86,43 @@
                 $(this).css("-webkit-mask", "url(" + chrome.extension.getURL("img/toolbar_fade_mask.svg") + ")");
             }
         });
+
+        initEvents();
+
+    }
+
+    function addSmartGifs(gifs) {
+        getSmartGif(gifs, 0);
+    }
+
+    function getSmartGif(gifs, index) {
+        if (index >= gifs.length) {
+            finishToolbelt();
+        }
+        else {
+            $.get("http://api.giphy.com/v1/gifs/search?q=" + gifs[index].name.substring(1) + "&api_key=dc6zaTOxFJmzC&limit=7", function(data) {
+                console.log(data);
+                var li = document.createElement("li");
+                var ol = document.createElement("ol");
+                var arr = data.data;
+                for (var j = 0; j < arr.length; j++) {
+                    var imgUrl = arr[j].images.fixed_height_still.url;
+                    var innerLi = document.createElement("li");
+                    innerLi.appendChild(generateAnchorGif(imgUrl));
+                    ol.appendChild(innerLi);
+
+                    // If we're doing the last one, we need to add an overlay
+                    if (j == gifs.length - 1) {
+                        li.appendChild(generateAnchorGif(imgUrl));
+                        li.appendChild(generateOverlay());
+                        li.appendChild(generateNameDiv(gifs[index].name));
+                    }
+                }
+                li.appendChild(ol);
+                $("#js-belt ol")[0].appendChild(li);
+                getSmartGif(gifs, index + 1);
+            });
+        }
     }
 
     function initEvents() {

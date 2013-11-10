@@ -19,17 +19,20 @@ function initContextMenu(categories) {
     var imageParent = chrome.contextMenus.create({"title": "Save Image in Category", "contexts": ["image"]});
     for (var i = 0; i < categories.length; i++) {
         
-        // Create all of the children for the image context menu
-        (function(category){
-            chrome.contextMenus.create({
-                "title": categories[i].name, 
-                "parentId": imageParent,
-                "contexts": ["image"], 
-                "onclick": function(info, tab) {
-                    imageOnClick(info, tab, category);
-                }
-            })    
-        })(categories[i].name);
+        // Create all of the children for the image context menu (making sure to
+        // exclude smart objects)
+        if (categories[i].name.charAt(0) != '#') {
+            (function(category){
+                chrome.contextMenus.create({
+                    "title": categories[i].name, 
+                    "parentId": imageParent,
+                    "contexts": ["image"], 
+                    "onclick": function(info, tab) {
+                        imageOnClick(info, tab, category);
+                    }
+                })    
+            })(categories[i].name);
+        }
     }
 }
 
