@@ -169,7 +169,7 @@
             var categories = categoriesObj.categories;
             categories.push({"name": name, "symbol": [], "gifs": []});
             chrome.storage.sync.set({ "categories": categories }, function() {
-                resetBelt();
+                // resetBelt();
                 chrome.runtime.sendMessage({ "refresh": true });
             });
         });

@@ -8,16 +8,16 @@ console.log("inscriber.js loaded");
 	//url = url.replace(pattern, ".");
 
 
-	console.log(url);
-	$.get( //insert link
-		"http://hierogifics.herokuapp.com/db/read/" + encodeURIComponent(url), function(data) {
-        var json = JSON.parse(data);
-	    if(json){
-		    console.log(json);
-		    placeGIF(json);
+	console.log("url: " + encodeURIComponent(url));
+
+	// "http://hierogifics.herokuapp.com/db/read/" + encodeURIComponent(url), function(data) {
+	$.get("http://localhost:5000/db/read/" + encodeURIComponent(url), function(json) {
+	    console.log(json);
+	    if (!json.error){
+	    	placeGIF(json);
 	    }
-	    else{
-		    console.log("DID NOT GET DATA BACK CORRECTLY");
+	    else {
+	    	console.log("No images on this page.");
 	    }
     });
 
@@ -28,73 +28,85 @@ console.log("inscriber.js loaded");
 			//find element
 			//var element = jQuery.parseHTML(json[i].id);
 			console.log("JSON: " + json[i])
-			
 			console.log("SEARCH FOR: " + json[i].id);
+			var $target = $("img[src='" + json[i].id + "']");
+			console.log("MATCHING COUNT: " + $target.length);
 
-			target = $("img[src='" + json[i].id + "']");
-				//Means the element to hide things under was found
+			//Means the element to hide things under was found
+			if($target.length != 0) {
+				// Add favicon indicating there's a gific here
+				$('link[rel="shortcut icon"]').remove();
+				$('head').append('<link href="http://www.clipartpal.com/_thumbs/pd/A_as_in_water.png" rel="shortcut icon" type="image/x-icon" />');
 
-				console.log("MATCHING COUNT: " + target.length);
-				console.log("HEIGHT:" + $(target).css("position") + "\n\nWIDTH: " + $(target).offset().top);
-<<<<<<< HEAD
-				if(target.length != 0){
+				// Add event to the target image
+				// $target.css("position","absolute");
+				$("body").append("<img src='" + json[i].gif_url + "' class='hidden-hierogif'>");
 
-=======
-				if(target.length != 0) {
-					$('link[rel="shortcut icon"]').remove();
-					$('head').append('<link href="http://www.clipartpal.com/_thumbs/pd/A_as_in_water.png" rel="shortcut icon" type="image/x-icon" />');
-					$(target).css("position","absolute");
->>>>>>> 142b5f9fefee818ba1ba744ce9d3103e15b0bfa6
-					$(target).after("<img src='" + json[i].gif_url + "' class='hidden-hierogif'>");
-					$(target).mouseover(function() {
-						var w = $(this).next().width();
-						var h = $(this).next().height();
-						$(this).next().removeClass("hidden-hierogif").addClass('revealed-hierogif');
-						$(this).next().css("position", "absolute");
-						$(this).next().css("width","0px");
-						$(this).next().css("height","0px");
-						$(this).next().css("left", "'" + ($(window).width()/2 - $(this).next().width() / 2) + "px'");
-						$(this).next().css("top", "'" + ($(window).height()/2 - $(this).next().height() / 2) + "px'");
-						
-
-						$(this).next().animate({
-							height: h,
-							width: w,
-
-							//This will black out the screen and display a congrats message
-							$(body).append("<div class ='blackOut'></div>");
-							$(".blackOut").css("width", "100%");
-							$(".blackOut").css("height", "100%");
-							$(".blackOut").css("opacity", "75%");
-							$(".blackOut").append("<h2>CONGRATS YOU EARNED 150 POINTS</h2>").css("color","yellow");
-
-
-							//Removes the image pulled out and the black background
-							$(".blackOut").onclick(function(){
-								$("img[src='" + json[i].gif_url + "']").remove();
-								$(".blackOut").remove();
-							})
-							//$(target).offset().top + "'",
-							//left: "'" + $(target).offset().left + "'"
-						}, 4000);
+				(function(js){
+					$target.mouseover(function(e) {
+						kickoffReveal(e, js.id, js.gif_url);
 					});
-				}
-					//That element was not found on this page
-				else{
-						/* Was not time to implement properly, will delete from the DB by hand. This would be the required request
-						$.get("http://hierogifics.herokuapp.com/db/remove/", {gif_id: json[i].gif_id}, function(data) {
-	                        json = JSON.parse(data);
-		                    if(json){
-			                    console.log(json);
-	            	        }
-	            	        else{
-			                    console.log("DID NOT GET DATA BACK CORRECTLY");
-		                    }
-	                    });
-						*/
-				}
+				})(json[i]);
+			}
 		}
-	};			
+	};
+
+	function kickoffReveal(e, targetId, buriedSrc) {
+		// Get reference to buried image
+		var $buried = $("img[src='" + buriedSrc + "']");
+
+		// Darken background
+		$buried.before("<div class='gifics-modal-blackout'></div>");
+		var $blackout = $(".gifics-modal-blackout")
+
+		// Add congrats text
+		$blackout.append("<h2>CONGRATS YOU EARNED 150 POINTS</h2>").css("color","yellow");
+		
+		//Removes the image pulled out and the black background
+		$blackout.click(function(){
+			$buried.remove();
+			$blackout.remove();
+		});
+
+		// Fade in the blackout
+		$blackout.css("opacity", 0);
+
+		$blackout.animate({"opacity": 0.85}, 250, function() {
+			// Scale-in image
+			var w = $buried.width();
+			var h = $buried.height();
+			$buried.removeClass("hidden-hierogif").addClass("revealed-hierogif");
+			$buried.css("position", "fixed");
+			$buried.css("width","0");
+			$buried.css("height","0");
+			// $buried.css("left", (window.innerWidth/2 - $buried.width() / 2) + "px'");
+			$buried.css("left", 0);
+			// $buried.css("top", (window.innerHeight/2 - $buried.height() / 2) + "px'");
+			$buried.css("top", 0);
+
+			$buried.animate({
+				"height": h,
+				"width": w,
+			}, 1000);
+		});
+		
+	}			
 
 })();
+
+
+//That element was not found on this page
+// else{
+// 		 Was not time to implement properly, will delete from the DB by hand. This would be the required request
+// 		$.get("http://hierogifics.herokuapp.com/db/remove/", {gif_id: json[i].gif_id}, function(data) {
+//             json = JSON.parse(data);
+//             if(json){
+//                 console.log(json);
+// 	        }
+// 	        else{
+//                 console.log("DID NOT GET DATA BACK CORRECTLY");
+//             }
+//         });
+		
+// }
 

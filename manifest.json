@@ -46,7 +46,8 @@
     ],
 
     "permissions": [
-	"http://hierogifics.herokuapp.com/*",
+        "http://hierogifics.herokuapp.com/*",
+        "http://localhost/*",
         "tabs",
         "storage",
         "contextMenus",

@@ -33,7 +33,7 @@
     	$(".gifics-modal-blackout").remove();
     }
 
-    function postGific(e, targetId, buriedSrc) {
+    function postGific(targetId, buriedSrc) {
     	var userID = "cheese";
 
 		console.log("gif_url: " + buriedSrc);
@@ -44,8 +44,23 @@
 		var url = window.location.origin + window.location.pathname;
 		console.log("url:" + url);
 
-		if(typeof gif_url !== "undefined" && gif_url !== null && typeof userCat !== "undefined" && typeof userCat !== "undefined")
-		$.get("http://hierogifics.herokuapp.com/db/create/" + encodeURIComponent(JSON.stringify({"url": url, "gifs": [{"id": targetId, "user_id": userID, "gif_url": buriedSrc, "category": ""}]})), function(){
+		// if(typeof gif_url !== "undefined" && gif_url !== null && typeof userCat !== "undefined" && typeof userCat !== "undefined") {
+		// 	$.get("http://hierogifics.herokuapp.com/db/create/" + encodeURIComponent(JSON.stringify({"url": url, "gifs": [{"id": targetId, "user_id": userID, "gif_url": buriedSrc, "category": ""}]})), function(){
+		// 			console.log("MIKE TOTH WAS HERE");
+		// 	});
+		// }
+		var obj = {
+			"url": url, 
+			"gifs": [{
+				"id": targetId, 
+				"user_id": userID, 
+				"gif_url": buriedSrc, 
+				"category": ""
+			}]
+		}
+		console.log(obj);
+		console.log(encodeURIComponent(JSON.stringify(obj)));
+		$.get("http://localhost:5000/db/create/" + encodeURIComponent(JSON.stringify(obj)), function(){
 				console.log("MIKE TOTH WAS HERE");
 		});
     }
