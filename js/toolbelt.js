@@ -26,8 +26,13 @@
     function initToolbelt(categories) {
         // Go through each category and generate the list and image nodes needed
         // for the toolbelt 
+        var smarts = [];
         for (var i = 0; i < categories.length; i++) {
             var name = categories[i].name;
+            if (name.charAt(0) == '#') {
+                smarts.push({"name": name, "index": i});
+                break;
+            }
             var gifs = categories[i].gifs;
             var li = document.createElement("li");
             var ol = document.createElement("ol");
@@ -35,39 +40,24 @@
             // If we have gifs in the category...
             for (var j = 0; j < gifs.length; j++) {
                 var innerLi = document.createElement("li");
-                var anchor = generateAnchorGif(gifs[j].animated);
-                innerLi.appendChild(anchor);
-
+                innerLi.appendChild(generateAnchorGif(gifs[j].animated));
                 ol.appendChild(innerLi);
+
+                // If we're doing the last one, we need to add an overlay
                 if (j == gifs.length - 1) {
-                    var anchor2 = generateAnchorGif(gifs[j].animated);
-                    li.appendChild(anchor2);
-                    var overlay = document.createElement("div");
-                    overlay.setAttribute("class", "gifics-overlay");
-                    li.appendChild(overlay);
-                    var nameDiv = document.createElement("div");
-                    nameDiv.setAttribute("class", "gifics-title");
-                    nameDiv.style.fontSize = 50 / Math.sqrt(name.length) + "px";
-                    nameDiv.innerText = name;
-                    li.appendChild(nameDiv);
+                    li.appendChild(generateAnchorGif(gifs[j].animated));
+                    li.appendChild(generateOverlay());
+                    li.appendChild(generateNameDiv(name));
                 }
             }
             // It it's an empty category (i.e. just added)
             if (gifs.length == 0) {
-                var innerLi = document.createElement("li");
-                var anchor = generateAnchorGif(chrome.extension.getURL("img/empty.jpg"));
-                innerLi.appendChild(anchor);
+                var innerLi = document.createElement("li");                
+                innerLi.appendChild(generateAnchorGif(chrome.extension.getURL("img/empty.jpg")));
                 ol.appendChild(innerLi);
-                var anchor2 = generateAnchorGif(chrome.extension.getURL("img/empty.jpg"));
-                li.appendChild(anchor2);
-                var overlay = document.createElement("div");
-                overlay.setAttribute("class", "gifics-overlay");
-                li.appendChild(overlay);
-                var nameDiv = document.createElement("div");
-                nameDiv.setAttribute("class", "gifics-title");
-                nameDiv.style.fontSize = 50 / Math.sqrt(name.length) + "px";
-                nameDiv.innerText = name;
-                li.appendChild(nameDiv);
+                li.appendChild(generateAnchorGif(chrome.extension.getURL("img/empty.jpg")));
+                li.appendChild(generateOverlay());
+                li.appendChild(generateNameDiv(name));
             }
             li.appendChild(ol);
             $("#js-belt ol")[0].appendChild(li);
@@ -78,6 +68,7 @@
         $("#js-belt ol")[0].appendChild(addCategory);
 
         $("#js-belt ol li ol").each(function(index){
+            console.log($(this).children().length);
             var height = Math.min($(this).children().length * 115 - 15, 400);
             $(this).css("height", height + "px");
         });
@@ -187,6 +178,20 @@
         anchor.style.backgroundSize = "auto 100px";
         anchor.href = src;
         return anchor;
+    }
+
+    function generateOverlay() {
+        var overlay = document.createElement("div");
+        overlay.setAttribute("class", "gifics-overlay");
+        return overlay;
+    }
+
+    function generateNameDiv(name) {
+        var nameDiv = document.createElement("div");
+        nameDiv.setAttribute("class", "gifics-title");
+        nameDiv.style.fontSize = 50 / Math.sqrt(name.length) + "px";
+        nameDiv.innerText = name;
+        return nameDiv;
     }
 
     function deleteGif(category, src) {
