@@ -14,7 +14,7 @@ console.log("inscriber.js loaded");
 	$.get("http://localhost:5000/db/read/" + encodeURIComponent(url), function(json) {
 	    console.log(json);
 	    if (!json.error){
-	    	placeGIF(json);
+	    	setTimeout(function(){ placeGIF(json); }, 2000);
 	    }
 	    else {
 	    	console.log("No images on this page.");
@@ -28,7 +28,7 @@ console.log("inscriber.js loaded");
 			//find element
 			console.log("JSON: " + json[i])
 			console.log("SEARCH FOR: " + json[i].id);
-			var $target = $("img[src='" + json[i].id + "']");
+			var $target = $("img[src$='" + json[i].id + "']");
 			console.log("MATCHING COUNT: " + $target.length);
 
 			//Means the element to hide things under was found

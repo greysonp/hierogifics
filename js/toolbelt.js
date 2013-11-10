@@ -198,6 +198,7 @@
     // ======================================================
 
     function showBelt() {
+        $("#js-toolbelt").appendTo("body");
         $("#js-toolbelt").animate({"bottom": "0"}, 250);
     }
 
