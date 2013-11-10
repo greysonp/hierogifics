@@ -733,7 +733,7 @@ var bookmarklet = function() {
           delayInfo = elt('input', 'delay_info', {type: 'text'}); // See above.
 
           var updateTools = function() {
-            
+
             if (playing) {
               playPause.innerHTML = pauseIcon;
                 playPause.title = 'Pause'
@@ -745,10 +745,10 @@ var bookmarklet = function() {
               prev.style.visibility = '';
               next.style.visibility = '';
             }
-            
+
             speedUp.style.visibility = '';
             slowDown.style.visibility = '';
-            
+
             toolbar.style.visibility = pinned ? 'visible' : ''; // See TODO.
 
             infoTools.style.display = showingInfo ? '' : 'none'; // See TODO.
@@ -766,12 +766,12 @@ var bookmarklet = function() {
             close.innerHTML = closeIcon;
               close.title = 'Close jsgif and go back to original image';
 
-            
+
             speedUp.innerHTML = speedUpIcon;
               speedUp.title = 'Double the play speed';
             slowDown.innerHTML = slowDownIcon;
               slowDown.title = 'Half the play speed';
-            
+
 
 
             //curFrame.disabled = playing;
@@ -780,7 +780,7 @@ var bookmarklet = function() {
             toolbar.innerHTML = '';
             simpleTools.innerHTML = '';
             infoTools.innerHTML = '';
-            
+
 
 
             var t = function(text) { return document.createTextNode(text); };
@@ -892,7 +892,7 @@ var bookmarklet = function() {
           slowDown.addEventListener('click',doSlowDown,false);
           //delayInfo.addEventListener('change', doCurDelayChanged, false);
 
-          
+
           canvas.addEventListener('click', doPlayPause, false);
 
           /*
@@ -922,10 +922,10 @@ var bookmarklet = function() {
             //showInfo.width("'" + ($("canvas").width / 7) + "px'");
             var buttonWidth = Math.floor(($("canvas").attr("width") / 7));
             console.log("BUTTON WIDTH" + buttonWidth);
-            
+
             if(buttonWidth < 40){
               buttonWidth = 40;
-            }            
+            }
 
             $(rev).css("width", buttonWidth + "px");
             $(prev).css("width", buttonWidth + "px");
@@ -1144,7 +1144,7 @@ var bookmarklet = function() {
 
   insertCSS(bookmarkletCSS);
 
-  mkOverlay(gifs[loadCount]);
+  //mkOverlay(gifs[loadCount]);
   //gifs.forEach(mkOverlay);
 
   chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
