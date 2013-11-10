@@ -24,9 +24,8 @@ console.log("inscriber.js loaded");
 
 	var placeGIF = function(json) {
 		console.log(json.length);
-		for(var i = 0; i < json.length; i++) {
+		for(var i = json.length - 1; i >= 0; i--) {
 			//find element
-			//var element = jQuery.parseHTML(json[i].id);
 			console.log("JSON: " + json[i])
 			console.log("SEARCH FOR: " + json[i].id);
 			var $target = $("img[src='" + json[i].id + "']");
@@ -43,10 +42,13 @@ console.log("inscriber.js loaded");
 				$("body").append("<img src='" + json[i].gif_url + "' class='hidden-hierogif'>");
 
 				(function(js){
-					$target.mouseover(function(e) {
+					$target.on("mouseenter", function(e) {
 						kickoffReveal(e, js.id, js.gif_url);
+						$(this).off();
 					});
 				})(json[i]);
+				json[i].id = null;
+				json.splice(i, 1);
 			}
 		}
 	};
@@ -63,16 +65,19 @@ console.log("inscriber.js loaded");
 		$score = $("<h1>YOU EARNED 150 POINTS!</h1>");
 		$("body").append($score);
 		$score.css("position", "fixed");
-		$score.css("top", 0);
+		$score.css("top", "50px");
 		$score.css("width", "100%");
 		$score.css("text-align", "center");
 		$score.css("color", "white");
 		$score.css("font-size", "72px");
 		
 		//Removes the image pulled out and the black background
+		var _this = this;
 		$blackout.click(function(){
+			$(_this).off();
 			$buried.fadeOut(250, function() { $buried.remove() });
 			$blackout.fadeOut(250, function() {$buried.remove(); });
+			$score.fadeOut(250, function() {$score.remove(); });
 		});
 
 		// Fade in the blackout
@@ -86,9 +91,7 @@ console.log("inscriber.js loaded");
 			$buried.css("position", "fixed");
 			$buried.css("width","0");
 			$buried.css("height","0");
-			// $buried.css("left", (window.innerWidth/2 - $buried.width() / 2) + "px'");
 			$buried.css("left", window.innerWidth/2 + "px");
-			// $buried.css("top", (window.innerHeight/2 - $buried.height() / 2) + "px'");
 			$buried.css("top", window.innerHeight/2 + "px");
 
 			$buried.animate({
