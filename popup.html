@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+  <head>
+    <title>HieroGIFics</title>
+    <style>
+      body {
+        background-color: #dfa35b;
+        font-family: "Raleway-Bold", "Arial", "sans-serif";
+        min-width: 300px;
+        overflow-x: hidden;
+      }
+      textarea {
+        width: 250px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        border-radius: 5px;
+        background-color: #FFE7BA;
+      }
+      textarea:focus {
+        border-color: black;
+        outline: none;
+        box-shadow: 0 0 20px;
+        
+      }
+      button {
+        border-radius: 15px;
+        background-color: #e6dbd1;
+      }
+    </style>
+    <script src="js/libs/jquery-2.0.3.min.js"></script>
+    <script src="js/clue.js"></script>
+  </head>
+  <body>
+
+    <textarea rows=3 columns=200 id="clue-box"></textarea> <br />
+    <button type="submit" id="clue-button">Get Clue</button>
+    
+  </body>
+</html>
