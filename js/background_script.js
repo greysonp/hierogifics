@@ -107,8 +107,10 @@ function initCategories(callback) {
 
 
 function signalToolbeltRebuild() {
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-        chrome.tabs.sendMessage(tabs[0].id, {"refresh": true});
+    console.log("Rebuild signal");
+    chrome.tabs.query({currentWindow: true}, function(tabs) {
+        for (var i = 0; i < tabs.length; i++)
+            chrome.tabs.sendMessage(tabs[i].id, {"refresh": true});
     });
 }
 
@@ -117,6 +119,7 @@ chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
     if (request.refresh) {
         chrome.contextMenus.removeAll(function() {
             kickoffContextMenu();
+            signalToolbeltRebuild();
         });
     }
 });
