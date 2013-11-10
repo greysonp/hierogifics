@@ -914,10 +914,12 @@ var bookmarklet = function() {
           doPlayPause();
           doNextFrame();
           console.log("Load Count: " + loadCount + ", length: " + gifs.length);
+          /*
           if(loadCount < gifs.length){
             loadCount++;
             mkOverlay(gifs[loadCount]);
           }
+          */
 
         };
 
@@ -1089,6 +1091,13 @@ var bookmarklet = function() {
 
   //mkOverlay(gifs[loadCount]);
   //gifs.forEach(mkOverlay);
+
+  chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
+        if (request.player) {
+            mkOverlay(resquest.player);
+        }
+  });
+
 };
 
 bookmarklet();
