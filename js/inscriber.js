@@ -60,7 +60,14 @@ console.log("inscriber.js loaded");
 		var $blackout = $(".gifics-modal-blackout")
 
 		// Add congrats text
-		$blackout.append("<h2>CONGRATS YOU EARNED 150 POINTS</h2>").css("color","yellow");
+		$score = $("<h1>YOU EARNED 150 POINTS!</h1>");
+		$("body").append($score);
+		$score.css("position", "fixed");
+		$score.css("top", 0);
+		$score.css("width", "100%");
+		$score.css("text-align", "center");
+		$score.css("color", "white");
+		$score.css("font-size", "72px");
 		
 		//Removes the image pulled out and the black background
 		$blackout.click(function(){
