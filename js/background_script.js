@@ -10,6 +10,13 @@ function kickoffContextMenu() {
         "onclick": onBuryClick
     });
 
+    // Can always add our player context menu
+    chrome.contextMenus.create({
+        "title": "Wrap in the gif player.",
+        "contexts": ["image"],
+        "onclick": onPlayerClick
+    });
+
     // These are the category-dependent menus
     chrome.storage.sync.get("categories", function(categoriesObj) {
         if (!categoriesObj || Object.keys(categoriesObj).length === 0) {
@@ -61,6 +68,14 @@ function onBuryClick(info, tab) {
     chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
         chrome.tabs.sendMessage(tabs[0].id, {"bury": info.srcUrl});
     });
+}
+
+function onPlayerClick(info, tab) {
+    if (info.srcUrl.indexOf(".gif") > 0) {
+        chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+            chrome.tabs.sendMessage(tabs[0].id, {"player": info.srcUrl});
+        });
+    }
 }
 
 function saveToStorage(url, category, categoriesObj) {

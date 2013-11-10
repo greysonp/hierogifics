@@ -1073,8 +1073,9 @@ var bookmarklet = function() {
     //e.preventDefault();
   };
 
-  var mkOverlay = function(gif) {
+  var mkOverlay = function(src) {
     console.log("CALL TO MKOVERLAY");
+    gif = $("img[src$='" + src + "']")[0];
     if (elemClasses(gif).indexOf('jsgif_overlaid') !== -1) return; // Idempotent.
     addClass(gif, 'jsgif_overlaid');
     //gif.addEventListener('load', clicked, false);
@@ -1094,7 +1095,8 @@ var bookmarklet = function() {
 
   chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
         if (request.player) {
-            mkOverlay(resquest.player);
+            console.log(request.player);
+            mkOverlay(request.player);
         }
   });
 
