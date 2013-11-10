@@ -64,8 +64,8 @@ console.log("inscriber.js loaded");
 		
 		//Removes the image pulled out and the black background
 		$blackout.click(function(){
-			$buried.remove();
-			$blackout.remove();
+			$buried.fadeOut(250, function() { $buried.remove() });
+			$blackout.fadeOut(250, function() {$buried.remove(); });
 		});
 
 		// Fade in the blackout
@@ -80,13 +80,15 @@ console.log("inscriber.js loaded");
 			$buried.css("width","0");
 			$buried.css("height","0");
 			// $buried.css("left", (window.innerWidth/2 - $buried.width() / 2) + "px'");
-			$buried.css("left", 0);
+			$buried.css("left", window.innerWidth/2 + "px");
 			// $buried.css("top", (window.innerHeight/2 - $buried.height() / 2) + "px'");
-			$buried.css("top", 0);
+			$buried.css("top", window.innerHeight/2 + "px");
 
 			$buried.animate({
 				"height": h,
 				"width": w,
+				"left": window.innerWidth/2 - w/2,
+				"top": window.innerHeight/2 - h/2
 			}, 1000);
 		});
 		
