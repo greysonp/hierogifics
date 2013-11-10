@@ -38,21 +38,36 @@ console.log("inscriber.js loaded");
 				console.log("MATCHING COUNT: " + target.length);
 				console.log("HEIGHT:" + $(target).css("position") + "\n\nWIDTH: " + $(target).offset().top);
 				if(target.length != 0){
-					$(target).css("position","absolute");
+
 					$(target).after("<img src='" + json[i].gif_url + "' class='hidden-hierogif'>");
 					$(target).mouseover(function() {
-						
+						var w = $(this).next().width();
+						var h = $(this).next().height();
 						$(this).next().removeClass("hidden-hierogif").addClass('revealed-hierogif');
 						$(this).next().css("position", "absolute");
 						$(this).next().css("width","0px");
 						$(this).next().css("height","0px");
-						$(this).next().css("left", "'" + $(target).offset().left + "px'");
-						$(this).next().css("top", "'" + $(target).offset().top + "px'");
+						$(this).next().css("left", "'" + ($(window).width()/2 - $(this).next().width() / 2) + "px'");
+						$(this).next().css("top", "'" + ($(window).height()/2 - $(this).next().height() / 2) + "px'");
 						
 
 						$(this).next().animate({
-							height: $(target).css("height"),
-							width: $(target).css("width"),
+							height: h,
+							width: w,
+
+							//This will black out the screen and display a congrats message
+							$(body).append("<div class ='blackOut'></div>");
+							$(".blackOut").css("width", "100%");
+							$(".blackOut").css("height", "100%");
+							$(".blackOut").css("opacity", "75%");
+							$(".blackOut").append("<h2>CONGRATS YOU EARNED 150 POINTS</h2>").css("color","yellow");
+
+
+							//Removes the image pulled out and the black background
+							$(".blackOut").onclick(function(){
+								$("img[src='" + json[i].gif_url + "']").remove();
+								$(".blackOut").remove();
+							})
 							//$(target).offset().top + "'",
 							//left: "'" + $(target).offset().left + "'"
 						}, 4000);
