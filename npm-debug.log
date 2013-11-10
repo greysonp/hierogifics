@@ -1,0 +1,19 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'version', 'stylus' ]
+2 info using npm@1.3.8
+3 info using node@v0.10.16
+4 error version No package.json found
+5 error Error: ENOENT, open '/Users/greyson/web/hierogifics/package.json'
+6 error If you need help, you may report this log at:
+6 error     <http://github.com/isaacs/npm/issues>
+6 error or email it to:
+6 error     <npm-@googlegroups.com>
+7 error System Darwin 13.0.0
+8 error command "node" "/usr/local/bin/npm" "version" "stylus"
+9 error cwd /Users/greyson/web/hierogifics
+10 error node -v v0.10.16
+11 error npm -v 1.3.8
+12 error path /Users/greyson/web/hierogifics/package.json
+13 error code ENOENT
+14 error errno 34
+15 verbose exit [ 34, true ]

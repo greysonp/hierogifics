@@ -3,6 +3,14 @@ var contexts = ["link","editable","image"];
 
 // Create a context menu for an image
 function kickoffContextMenu() {
+    // Can always add the context menu to hide gifs
+    chrome.contextMenus.create({
+        "title": "Bury a gif here.",
+        "contexts": ["image"],
+        "onclick": onBuryClick
+    });
+
+    // These are the category-dependent menus
     chrome.storage.sync.get("categories", function(categoriesObj) {
         if (!categoriesObj || Object.keys(categoriesObj).length === 0) {
             initCategories(function(categoriesObj) {
@@ -46,6 +54,12 @@ function imageOnClick(info, tab, category) {
         else {
             saveToStorage(info.srcUrl, category, categories);
         }
+    });
+}
+
+function onBuryClick(info, tab) {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {"bury": info.srcUrl});
     });
 }
 
