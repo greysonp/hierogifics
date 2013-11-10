@@ -82,7 +82,6 @@
         // Add mask (we need to do it in js because we need the url)
         // But only add it if there's >= 4 items in the list
         $("#js-belt ol li ol").each(function() {
-            console.log($(this).children().length);
             if ($(this).children().length >= 4) {
                 $(this).css("-webkit-mask", "url(" + chrome.extension.getURL("img/toolbar_fade_mask.svg") + ")");
             }
@@ -147,7 +146,6 @@
     }
 
     chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
-        console.log(request);
         if (request.refresh) {
             resetBelt();
         }

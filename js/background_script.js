@@ -34,12 +34,9 @@ function initContextMenu(categories) {
 }
 
 function imageOnClick(info, tab, category) {
-    console.log(category + " | " + info.srcUrl);
     chrome.storage.sync.get("categories", function(categories) {
-        console.log(categories);
         if (!categories || Object.keys(categories).length == 0) {
             initCategories(function(defaults) {
-                console.log(defaults);
                 saveToStorage(info.srcUrl, category, defaults);
             });
         }
