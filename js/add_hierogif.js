@@ -34,6 +34,15 @@
     }
 
     function postGific(targetId, buriedSrc) {
+    	var $img = $("<img src='" + buriedSrc + "' />");
+    	$("body").append($img);
+    	$img.css("position", "fixed");
+    	$img.css("left", window.innerWidth/2 - $img.width()/2 + "px");
+    	$img.css("top", window.innerHeight/2 - $img.height()/2 + "px");
+    	$img.animate({"width": 0, "height": 0, "top": window.innerHeight/2, "left": window.innerWidth/2}, 750, function() {
+    		$img.remove();
+    	})
+
     	var userID = "cheese";
 
 		console.log("gif_url: " + buriedSrc);

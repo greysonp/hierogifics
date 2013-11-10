@@ -24,7 +24,7 @@ function kickoffContextMenu() {
 }
 
 function initContextMenu(categories) {
-    var imageParent = chrome.contextMenus.create({"title": "Save Image in Category", "contexts": ["image"]});
+    var imageParent = chrome.contextMenus.create({"title": "Add image to category.", "contexts": ["image"]});
     for (var i = 0; i < categories.length; i++) {
         
         // Create all of the children for the image context menu (making sure to
