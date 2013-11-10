@@ -625,6 +625,9 @@ var bookmarklet = function() {
 
         var doSpeedUp = function(){
           for(var j = 0; j < frames.length; j++){
+            if(frames[i].delay === 0){
+              frames[i].delay = 0.5;
+            }
             frames[j].delay = (frames[j].delay / 2);
             console.log("Frame[" + j + "]: curr: " + frames[j].delay + ",  next: " + (frames[j].delay / 2));
           }
@@ -632,6 +635,9 @@ var bookmarklet = function() {
 
         var doSlowDown = function(){
           for(var j = 0; j < frames.length; j++){
+            if(frames[i].delay === 0){
+              frames[i].delay = 2;
+            }
             frames[j].delay = (frames[j].delay * 2);
             console.log("Frame[" + j + "]: curr: " + frames[j].delay + ",  next: " + (frames[j].delay / 2));
 
@@ -695,8 +701,8 @@ var bookmarklet = function() {
           var unpinIcon = circle;
           var popupIcon = nearr;
 
-          var speedUpIcon = '+';
-          var slowDownIcon = '-';
+          var speedUpIcon = '+2x';
+          var slowDownIcon = '-2x';
 
           /**
            * @param{Object=} attrs Attributes (optional).
@@ -768,8 +774,8 @@ var bookmarklet = function() {
             
 
 
-            curFrame.disabled = playing;
-            delayInfo.disabled = playing;
+            //curFrame.disabled = playing;
+            //delayInfo.disabled = playing;
 
             toolbar.innerHTML = '';
             simpleTools.innerHTML = '';
@@ -809,8 +815,8 @@ var bookmarklet = function() {
             };
 
             // XXX Blach.
-            var simpleToolList = forward ? [showInfo, rev, prev, playPause, next, pin, close, speedUp, slowDown]
-                                         : [showInfo, rev, next, playPause, prev, pin, close, speedUp, slowDown];
+            var simpleToolList = forward ? [rev, slowDown, prev, playPause, next, speedUp, close]
+                                         : [rev, next, slowDown, playPause, prev, speedUp, close];
             populate(toolbar, [simpleTools, infoTools]);
             populate(simpleTools, simpleToolList);
             populate(infoTools, [t(' frame: '), curFrame, t(' / '), t(frames.length), t(' (delay: '), delayInfo, t(')')]);
@@ -873,18 +879,18 @@ var bookmarklet = function() {
           // TODO: If the <img> was in an <a>, every one of these will go to the
           // URL. We don't want that for the buttons (and probably not for
           // anything?).
-          showInfo.addEventListener('click', doToggleShowingInfo, false);
+          //showInfo.addEventListener('click', doToggleShowingInfo, false);
           rev.addEventListener('click', doRev, false);
-          curFrame.addEventListener('change', doCurFrameChanged, false);
+          //curFrame.addEventListener('change', doCurFrameChanged, false);
           prev.addEventListener('click', doPrevFrame, false);
           playPause.addEventListener('click', doPlayPause, false);
 
           next.addEventListener('click', doNextFrame, false);
-          pin.addEventListener('click', doTogglePinned, false);
+          //pin.addEventListener('click', doTogglePinned, false);
           close.addEventListener('click', doClose, false);
           speedUp.addEventListener('click', doSpeedUp, false);
           slowDown.addEventListener('click',doSlowDown,false);
-          delayInfo.addEventListener('change', doCurDelayChanged, false);
+          //delayInfo.addEventListener('change', doCurDelayChanged, false);
 
           
           canvas.addEventListener('click', doPlayPause, false);
@@ -897,18 +903,18 @@ var bookmarklet = function() {
           // For now, to handle GIFs in <a> tags and so on. This needs to be handled better, though.
           div.addEventListener('click', function(e) { e.preventDefault(); }, false);
 
-/*
-          showInfo.style.visibility ='hidden';
-          rev.style.visibility = 'hidden';
-          prev.style.visibility = 'hidden';
-          playPause.style.visibility = 'hidden';
-          next.style.visibility = 'hidden';
-          pin.style.visibility = 'hidden';
-          close.style.visibility = 'hidden';
-*/
 
-          curFrame.style.visibility = "visible";
-          delayInfo.style.visibility = 'visible';
+          showInfo.style.visibility ='hidden';
+          //rev.style.visibility = 'hidden';
+          //prev.style.visibility = 'hidden';
+          //playPause.style.visibility = 'hidden';
+          //next.style.visibility = 'hidden';
+          pin.style.visibility = 'hidden';
+          //close.style.visibility = 'hidden';
+
+
+          //curFrame.style.visibility = "visible";
+          //delayInfo.style.visibility = 'visible';
 
           updateTools();
           doPlayPause();
@@ -1089,14 +1095,14 @@ var bookmarklet = function() {
 
   insertCSS(bookmarkletCSS);
 
-  //mkOverlay(gifs[loadCount]);
+  mkOverlay(gifs[loadCount]);
   //gifs.forEach(mkOverlay);
 
   chrome.runtime.onMessage.addListener( function(request, sender, sendResponse) {
         if (request.player) {
             mkOverlay(resquest.player);
         }
-  });
+    });
 
 };
 
