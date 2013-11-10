@@ -12,6 +12,7 @@
 
     $.get(chrome.extension.getURL("html/toolbelt.html"), function(data) {
         $("body").append(data);
+        embedFonts();
         kickoffToolbelt();        
     });
 
@@ -46,6 +47,7 @@
                     li.appendChild(overlay);
                     var nameDiv = document.createElement("div");
                     nameDiv.setAttribute("class", "gifics-title");
+                    nameDiv.style.fontSize = 50 / Math.sqrt(name.length) + "px";
                     nameDiv.innerText = name;
                     li.appendChild(nameDiv);
                 }
@@ -63,6 +65,7 @@
                 li.appendChild(overlay);
                 var nameDiv = document.createElement("div");
                 nameDiv.setAttribute("class", "gifics-title");
+                nameDiv.style.fontSize = 50 / Math.sqrt(name.length) + "px";
                 nameDiv.innerText = name;
                 li.appendChild(nameDiv);
             }
@@ -100,6 +103,11 @@
         $("#js-belt li a").click(function(e) { e.preventDefault(); });
         $("#js-belt li a").dblclick(promptToDeleteGif);
     }
+
+    function embedFonts() {
+        embedFont("Raleway-Bold", "css/fonts/Raleway-Bold.ttf");
+        embedFont("Raleway-ExtraBold", "css/fonts/Raleway-ExtraBold.ttf");
+    };
 
 
     // ======================================================
@@ -212,5 +220,13 @@
             });
         });
     }
+
+    function embedFont(name, path) {
+        var node = document.createElement("style");
+        node.type = "text/css";
+        var url = chrome.extension.getURL(path);
+        node.textContent = "@font-face { font-family: '" + name + "'; src: url('" + url + "'); }";
+        document.head.appendChild(node);
+    };
 
 })();
