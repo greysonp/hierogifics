@@ -1,7 +1,6 @@
 console.log("inscriber.js loaded");
 
 (function () {
-
 	//retrieve page information
 	var url = window.location.origin + window.location.pathname;
 	//url = url.substring(document.location.protocol.length + 2);
@@ -36,11 +35,48 @@ console.log("inscriber.js loaded");
 				//Means the element to hide things under was found
 
 				console.log("MATCHING COUNT: " + target.length);
-
+				console.log("HEIGHT:" + $(target).css("position") + "\n\nWIDTH: " + $(target).offset().top);
+<<<<<<< HEAD
 				if(target.length != 0){
+
+=======
+				if(target.length != 0) {
+					$('link[rel="shortcut icon"]').remove();
+					$('head').append('<link href="http://www.clipartpal.com/_thumbs/pd/A_as_in_water.png" rel="shortcut icon" type="image/x-icon" />');
+					$(target).css("position","absolute");
+>>>>>>> 142b5f9fefee818ba1ba744ce9d3103e15b0bfa6
 					$(target).after("<img src='" + json[i].gif_url + "' class='hidden-hierogif'>");
 					$(target).mouseover(function() {
-					$(this).next().removeClass("hidden-hierogif").addClass('revealed-hierogif');
+						var w = $(this).next().width();
+						var h = $(this).next().height();
+						$(this).next().removeClass("hidden-hierogif").addClass('revealed-hierogif');
+						$(this).next().css("position", "absolute");
+						$(this).next().css("width","0px");
+						$(this).next().css("height","0px");
+						$(this).next().css("left", "'" + ($(window).width()/2 - $(this).next().width() / 2) + "px'");
+						$(this).next().css("top", "'" + ($(window).height()/2 - $(this).next().height() / 2) + "px'");
+						
+
+						$(this).next().animate({
+							height: h,
+							width: w,
+
+							//This will black out the screen and display a congrats message
+							$(body).append("<div class ='blackOut'></div>");
+							$(".blackOut").css("width", "100%");
+							$(".blackOut").css("height", "100%");
+							$(".blackOut").css("opacity", "75%");
+							$(".blackOut").append("<h2>CONGRATS YOU EARNED 150 POINTS</h2>").css("color","yellow");
+
+
+							//Removes the image pulled out and the black background
+							$(".blackOut").onclick(function(){
+								$("img[src='" + json[i].gif_url + "']").remove();
+								$(".blackOut").remove();
+							})
+							//$(target).offset().top + "'",
+							//left: "'" + $(target).offset().left + "'"
+						}, 4000);
 					});
 				}
 					//That element was not found on this page
