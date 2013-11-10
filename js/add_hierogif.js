@@ -23,6 +23,7 @@ console.log("add_hierogif.js");
 
 		console.log("url:" + url);
 
+		if(gif_url !== undefined && gif_url !== null && userCat !== undefined && userCat !== undefined)
 		$.get("http://hierogifics.herokuapp.com/db/create/" + encodeURIComponent(JSON.stringify({"url": url, "gifs": [{"id": gifs_id, "user_id": userID, "gif_url": gif_url, "category": userCat}]})), function(){
 				console.log("MIKE TOTH WAS HERE");
 
