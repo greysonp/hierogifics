@@ -816,7 +816,7 @@ var bookmarklet = function() {
 
             // XXX Blach.
             var simpleToolList = forward ? [rev, slowDown, prev, playPause, next, speedUp, close]
-                                         : [rev, next, slowDown, playPause, prev, speedUp, close];
+                                         : [rev, slowDown, next, playPause, prev, speedUp, close];
             populate(toolbar, [simpleTools, infoTools]);
             populate(simpleTools, simpleToolList);
             populate(infoTools, [t(' frame: '), curFrame, t(' / '), t(frames.length), t(' (delay: '), delayInfo, t(')')]);
@@ -915,6 +915,54 @@ var bookmarklet = function() {
 
           //curFrame.style.visibility = "visible";
           //delayInfo.style.visibility = 'visible';
+
+
+            //console.log("SHOW INFO WIDTH: " + showInfo.width());
+            console.log("CANVAS WIDTH: " + $("canvas").attr("width"));
+            //showInfo.width("'" + ($("canvas").width / 7) + "px'");
+            var buttonWidth = Math.floor(($("canvas").attr("width") / 7));
+            console.log("BUTTON WIDTH" + buttonWidth);
+            
+            if(buttonWidth < 40){
+              buttonWidth = 40;
+            }            
+
+            $(rev).css("width", buttonWidth + "px");
+            $(prev).css("width", buttonWidth + "px");
+            $(playPause).css("width", buttonWidth + "px");
+            $(next).css("width", buttonWidth + "px");
+            $(close).css("width", buttonWidth + "px");
+            $(speedUp).css("width", buttonWidth + "px");
+            $(slowDown).css("width", buttonWidth + "px");
+            //rev.style.width = "'" + buttonWidth + "px'";
+            //prev.style.width = "'" + buttonWidth + "px'";
+            //playPause.style.width = "'" + buttonWidth + "px'";
+            //next.style.width = "'" + buttonWidth + "px'";
+            //close.style.width = "'" + buttonWidth + "px'";
+            //speedUp.style.width = "'" + buttonWidth + "px'";
+            //slowDown.style.width = "'" + buttonWidth + "px'";
+
+            var buttonHeight = Math.floor(buttonWidth / 2);
+            if(buttonHeight < 20){
+              buttonHeight = 20;
+            }
+            $(rev).css("height", buttonHeight + "px");
+            $(prev).css("height", buttonHeight + "px");
+            $(playPause).css("height", buttonHeight + "px");
+            $(next).css("height", buttonHeight + "px");
+            $(close).css("height", buttonHeight + "px");
+            $(speedUp).css("height", buttonHeight + "px");
+            $(slowDown).css("height", buttonHeight + "px");
+
+/*
+            rev.style.height = "'" + buttonHeight + "px'";
+            prev.style.height = "'" + buttonHeight + "px'";
+            playPause.style.height = "'" + buttonHeight + "px'";
+            next.style.height = "'" + buttonHeight + "px'";
+            close.style.height = "'" + buttonHeight + "px'";
+            speedUp.style.height = "'" + buttonHeight + "px'";
+            slowDown.style.height = "'" + buttonHeight + "px'";
+*/
 
           updateTools();
           doPlayPause();
