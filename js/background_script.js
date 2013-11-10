@@ -3,6 +3,14 @@ var contexts = ["link","editable","image"];
 
 // Create a context menu for an image
 function kickoffContextMenu() {
+    // Can always add the context menu to hide gifs
+    chrome.contextMenus.create({
+        "title": "Bury a gif here.",
+        "contexts": ["image"],
+        "onclick": onBuryClick
+    });
+
+    // These are the category-dependent menus
     chrome.storage.sync.get("categories", function(categoriesObj) {
         if (!categoriesObj || Object.keys(categoriesObj).length === 0) {
             initCategories(function(categoriesObj) {
@@ -16,7 +24,7 @@ function kickoffContextMenu() {
 }
 
 function initContextMenu(categories) {
-    var imageParent = chrome.contextMenus.create({"title": "Save Image in Category", "contexts": ["image"]});
+    var imageParent = chrome.contextMenus.create({"title": "Add image to category.", "contexts": ["image"]});
     for (var i = 0; i < categories.length; i++) {
         
         // Create all of the children for the image context menu (making sure to
@@ -46,6 +54,12 @@ function imageOnClick(info, tab, category) {
         else {
             saveToStorage(info.srcUrl, category, categories);
         }
+    });
+}
+
+function onBuryClick(info, tab) {
+    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+        chrome.tabs.sendMessage(tabs[0].id, {"bury": info.srcUrl});
     });
 }
 
@@ -108,8 +122,10 @@ function initCategories(callback) {
 
 function signalToolbeltRebuild() {
     chrome.tabs.query({currentWindow: true}, function(tabs) {
-        for (var i = 0; i < tabs.length; i++)
+        for (var i = 0; i < tabs.length; i++){
+            console.log("refreshing tab " + tabs[i].id);
             chrome.tabs.sendMessage(tabs[i].id, {"refresh": true});
+        }
     });
 }
 

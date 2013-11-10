@@ -2,3 +2,50 @@
 	display: none;
 	visibility: hidden;
 }
+
+.gifics-modal {
+    width: 300px;
+    height: 300px;
+    position: fixed;
+    margin: auto;
+    top: 100px;
+    background-color: #dfa35b;
+    padding: 15px;
+    font-size: 14px !important;
+    border-radius: 10px;
+    box-shadow: 2px 2px 10px 0 #000;
+}
+
+.gifics-modal label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.gifics-modal h1 {
+    font-size: 24px !important;
+}
+
+.gifics-modal input[type=text] {
+    font-size: 18px !important;
+    width: 100%;
+    border-radius: 10px;
+}
+
+.gifics-modal input[type=button] {
+    font-size: 18px !important;
+    margin-top: 10px;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.gifics-modal-blackout {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.75;
+}

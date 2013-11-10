@@ -169,7 +169,7 @@
             var categories = categoriesObj.categories;
             categories.push({"name": name, "symbol": [], "gifs": []});
             chrome.storage.sync.set({ "categories": categories }, function() {
-                resetBelt();
+                // resetBelt();
                 chrome.runtime.sendMessage({ "refresh": true });
             });
         });
@@ -198,6 +198,7 @@
     // ======================================================
 
     function showBelt() {
+        $("#js-toolbelt").appendTo("body");
         $("#js-toolbelt").animate({"bottom": "0"}, 250);
     }
 
@@ -265,7 +266,7 @@
                 }
             }
             chrome.storage.sync.set({"categories": categories}, function() {
-                resetBelt();
+                // resetBelt();
                 chrome.runtime.sendMessage({ "refresh": true });
             });
         });
