@@ -112,7 +112,7 @@
         return false;
     });
 
-    Mousetrap.bind(["command+shift+down", "control+shift+up"], function(e) {
+    Mousetrap.bind(["command+shift+down", "control+shift+down"], function(e) {
         hideBelt();
         return false;
     });
