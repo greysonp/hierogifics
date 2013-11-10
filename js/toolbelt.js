@@ -265,7 +265,7 @@
                 }
             }
             chrome.storage.sync.set({"categories": categories}, function() {
-                resetBelt();
+                // resetBelt();
                 chrome.runtime.sendMessage({ "refresh": true });
             });
         });

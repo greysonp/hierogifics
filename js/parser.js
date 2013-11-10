@@ -106,7 +106,7 @@ console.log("parser.js loaded");
 	}
 
 	var initParser = function(categoriesObj) {
-		$("input").add($("textarea")).on("input", null, null, inputHandler);
+		$("body").on("input", "input, textarea", null, inputHandler);
 		data = categoriesObj;
 	}
 })();

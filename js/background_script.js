@@ -122,8 +122,10 @@ function initCategories(callback) {
 
 function signalToolbeltRebuild() {
     chrome.tabs.query({currentWindow: true}, function(tabs) {
-        for (var i = 0; i < tabs.length; i++)
+        for (var i = 0; i < tabs.length; i++){
+            console.log("refreshing tab " + tabs[i].id);
             chrome.tabs.sendMessage(tabs[i].id, {"refresh": true});
+        }
     });
 }
 
