@@ -86,9 +86,7 @@
                 $(this).css("-webkit-mask", "url(" + chrome.extension.getURL("img/toolbar_fade_mask.svg") + ")");
             }
         });
-
         initEvents();
-
     }
 
     function addSmartGifs(gifs) {
@@ -106,7 +104,7 @@
                 var ol = document.createElement("ol");
                 var arr = data.data;
                 for (var j = 0; j < arr.length; j++) {
-                    var imgUrl = arr[j].images.fixed_height_still.url;
+                    var imgUrl = arr[j].images.fixed_height.url;
                     var innerLi = document.createElement("li");
                     innerLi.appendChild(generateAnchorGif(imgUrl));
                     ol.appendChild(innerLi);
@@ -179,9 +177,12 @@
     }
 
     function promptToDeleteGif(e) {
-        var result = confirm("Would you like to delete this gif?");
+        var category = $(this).parents("ol").parents("li").find(".gifics-title").text();
+        var message = "Would you like to delete this gif?";
+        if (category.charAt(0) == '#')
+            message = "Would you like to delete this smart category?";
+        var result = confirm(message);
         if (result) {
-            var category = $(this).parents("ol").parents("li").find(".gifics-title").text();
             var src = $(this).attr("href");
             deleteGif(category, src);
         }
@@ -244,8 +245,9 @@
                 var c = categories[i];
                 // Find the category that matches
                 if (c.name == category) {
-                    // If you clicked the empty.jpg, then just delete the category and skidaddle
-                    if (c.gifs.length == 0) {
+                    // If you clicked the empty.jpg or it's a smart object, then just delete the 
+                    // category and skidaddle
+                    if (c.gifs.length == 0 || c.name.charAt(0) == '#') {
                         categories.splice(i, 1);
                         break;
                     }
