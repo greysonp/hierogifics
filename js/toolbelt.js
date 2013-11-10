@@ -99,7 +99,6 @@
         }
         else {
             $.get("http://api.giphy.com/v1/gifs/search?q=" + gifs[index].name.substring(1) + "&api_key=dc6zaTOxFJmzC&limit=7", function(data) {
-                console.log(data);
                 var li = document.createElement("li");
                 var ol = document.createElement("ol");
                 var arr = data.data;
