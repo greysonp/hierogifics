@@ -36,11 +36,26 @@ console.log("inscriber.js loaded");
 				//Means the element to hide things under was found
 
 				console.log("MATCHING COUNT: " + target.length);
-
+				console.log("HEIGHT:" + $(target).css("position") + "\n\nWIDTH: " + $(target).offset().top);
 				if(target.length != 0){
+					$(target).css("position","absolute");
 					$(target).after("<img src='" + json[i].gif_url + "' class='hidden-hierogif'>");
 					$(target).mouseover(function() {
-					$(this).next().removeClass("hidden-hierogif").addClass('revealed-hierogif');
+						
+						$(this).next().removeClass("hidden-hierogif").addClass('revealed-hierogif');
+						$(this).next().css("position", "absolute");
+						$(this).next().css("width","0px");
+						$(this).next().css("height","0px");
+						$(this).next().css("left", "'" + $(target).offset().left + "px'");
+						$(this).next().css("top", "'" + $(target).offset().top + "px'");
+						
+
+						$(this).next().animate({
+							height: $(target).css("height"),
+							width: $(target).css("width"),
+							//$(target).offset().top + "'",
+							//left: "'" + $(target).offset().left + "'"
+						}, 4000);
 					});
 				}
 					//That element was not found on this page
