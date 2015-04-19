@@ -2,11 +2,7 @@ iconDiameter = 100px
 beltHeight = 0px
 
 li-rounded()
-    // background-color white
     border-radius (iconDiameter/2)
-
-circleMask() 
-    -webkit-clip-path: circle(iconDiameter/2, iconDiameter/2, iconDiameter/2)
 
 .gifics-toolbelt 
     position fixed
@@ -62,15 +58,10 @@ circleMask()
     li-rounded()
     font-family "Raleway-Bold", "Arial", "sans-serif"
 
-.gifics-belt a
-    width iconDiameter
-    height iconDiameter
-    circleMask()
-
 .gifics-belt a 
     width iconDiameter
     height iconDiameter
-    circleMask()
+    li-rounded()
     display block
 
 
@@ -88,7 +79,7 @@ circleMask()
     height iconDiameter
 
 .gifics-overlay
-    circleMask()
+    li-rounded()
     position absolute
     top 0
     left 0
